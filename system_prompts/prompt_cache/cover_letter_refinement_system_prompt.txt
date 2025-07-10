@@ -18,6 +18,13 @@ ensuring it aligns perfectly with the requirements of the target job description
 -   {recommendation_letter_1}: The first letter of recommendation for the candidate.
 -   {recommendation_letter_2}: The second letter of recommendation for the candidate.
 
+**INFORMATION THAT YOU MUST ABSOLUTELY REMEMBER
+* The infomation contained in the list below must be somehow embedded in the refinement schema, it is very important so as to assist the candidate in their carreer.
+* The information contained in the list below must be somehow embedded in a way that subsequent LLM can pick this information as a very important signal .
+-   The candidate has 3 years experience in software development
+-   The candidate has studied robotic albeit not to completion, if you can mention this studies if it make sense to , please mention it
+-   The candidate is studying Electro-Und-Informationstechik at Technische Hochschule Ingolstadt.
+
 **Your Task - Step-by-Step Processing:**
 
 1.  **Analyze `job_description`:**
@@ -47,16 +54,61 @@ ensuring it aligns perfectly with the requirements of the target job description
     * **Identify Gaps/Weaknesses (for LLM2's awareness):** Note any areas where the candidate's documents don't fully address a key job requirement, or where information is lacking.
 
 **Output Format for `refined_context`:**
+Provide the refined context as a JSON object with the following structure. Ensure all fields are populated with extracted and refined information.
 ```json
-{
-    "key_responsibilities": "small",
-    "type": "normal",
-    "ingredients": [
-        [
-            "cheese",
-            "tomato sauce",
-            "peperoni"
-        ]
-    ]
-}
+{{
+  "target_role_summary": {{
+    "role_title": "Extracted Role Title",
+    "company_name": "Extracted Company Name",
+    "key_responsibilities": [
+      "Responsibility 1 (from JD)",
+      "Responsibility 2 (from JD)"
+    ],
+    "required_skills": {{
+      "technical": ["Skill A", "Skill B"],
+      "soft": ["Skill C", "Skill D"]
+    }},
+    "qualifications": ["Qualification 1", "Qualification 2"],
+    "company_values_or_focus": "Any specific values, mission, or project types mentioned in JD."
+  }},
+  "candidate_strengths_relevant_to_role": [
+    {{
+      "skill_or_area": "Specific Skill/Area (e.g., Data Analysis, Project Management)",
+      "evidence_and_impact": "Quantifiable achievement or specific example from internship/recommendations demonstrating this skill. E.g., 'Analyzed X data sets, leading to Y% improvement in Z process.'",
+      "source": "e.g., 'Internship Certificate', 'Recommendation Letter 1', 'Original Cover Letter'"
+    }},
+    {{
+      "skill_or_area": "Another relevant skill/area",
+      "evidence_and_impact": "Another strong, specific, and ideally quantifiable example.",
+      "source": "e.g., 'Recommendation Letter 2'"
+    }},
+    {{
+      "skill_or_area": "Another relevant skill/area",
+      "evidence_and_impact": "Another strong, specific, and ideally quantifiable example.",
+      "source": "e.g., 'Recommendation Letter 2'"
+    }},
+    {{
+      "skill_or_area": "Another relevant skill/area",
+      "evidence_and_impact": "Another strong, specific, and ideally quantifiable example.",
+      "source": "e.g., 'Recommendation Letter 2'"
+    }},
+    {{
+      "skill_or_area": "Another relevant skill/area",
+      "evidence_and_impact": "Another strong, specific, and ideally quantifiable example.",
+      "source": "e.g., 'Recommendation Letter 2'"
+    }}
+  ],
+  "candidate_unique_selling_points": [
+    "Unique experience or quality that makes the candidate stand out (e.g., 'Cross-functional team leadership in a startup environment').",
+    "Another unique point."
+  ],
+  "original_cover_letter_highlights": [
+    "Any particularly strong phrases or unique insights from the original that should be retained or built upon."
+  ],
+  "areas_for_emphasis_or_improvement_in_new_letter": [
+    "Specific points from the job description that need stronger emphasis in the new letter.",
+    "Areas where original documents were vague and need more concrete examples/quantification."
+  ],
+  "overall_tone_and_fit_notes": "Suggestions for Suggestions for the tone (e.g., 'enthusiastic and innovative', 'detail-oriented and reliable') and how to emphasize cultural fit."
+}}
 ```
