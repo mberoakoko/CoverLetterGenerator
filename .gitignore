@@ -1,2 +1,4 @@
 .idea
 data
+/system_prompts/resource_log.log
+/prompting.log

@@ -23,11 +23,11 @@ DESCRIPTION_PATH: pathlib.Path = (pathlib.Path(__file__).parent / "data/job_desc
 
 SELECTED_MODEL: str = "llama3.2"
 
-_COMPANY_DESCRIPTION: str = "wenglor_sensoric_description"
+_COMPANY_JOB_DESCRIPTION: str = "wenglor_sensoric_description"
 
 
 @dataclasses.dataclass
-class Reader:
+class MyResourceReader:
     file_location: pathlib.Path
 
     def read(self) -> str:
@@ -41,7 +41,7 @@ class Reader:
 def resolve_company_description(company_name: str) -> str | None:
     company_description_path: pathlib.Path = DESCRIPTION_PATH / f"{company_name}_description.txt"
     if company_description_path.exists():
-        return Reader(file_location=company_description_path).read()
+        return MyResourceReader(file_location=company_description_path).read()
     return None
 
 
@@ -91,13 +91,13 @@ def __test_cover_letter_chef():
         runner = CoverLetterChef(
             prompt=prompt_factory(),
             model=ChatOllama(model=SELECTED_MODEL),
-            cover_letter=Reader(file_location=ORIGINAL_COVERLETTER_PATH).read(),
+            cover_letter=MyResourceReader(file_location=ORIGINAL_COVERLETTER_PATH).read(),
             job_description_context=resolve_company_description(company_name="mbda")
         ).create_chain()
         print(runner)
 
 def __test_cover_letter_refinement_prompt_template() -> dict:
-    prompt_inputs = create_cover_letter_refinement_inputs(_COMPANY_DESCRIPTION)
+    prompt_inputs = create_cover_letter_refinement_inputs(_COMPANY_JOB_DESCRIPTION)
     json_parser , letter_prompt = cover_letter_refinement_prompt_template_gen()
     model = ChatOllama(model=SELECTED_MODEL, num_ctx=8192)# .with_structured_output(TargetRoleSummary)
     output = model.invoke(letter_prompt.invoke(prompt_inputs))
@@ -109,8 +109,8 @@ def __test_cover_letter_generation():
     ctx = cover_letter_prompt.invoke(
         {
             "refined_context": refined_context,
-            "job_description": resolve_company_description(_COMPANY_DESCRIPTION),
-            "original_cover_letter": Reader(file_location=ORIGINAL_COVERLETTER_PATH).read()}
+            "job_description": resolve_company_description(_COMPANY_JOB_DESCRIPTION),
+            "original_cover_letter": MyResourceReader(file_location=ORIGINAL_COVERLETTER_PATH).read()}
     )
     print("Generated Context ... ")
     model = ChatOllama(model=SELECTED_MODEL, num_ctx=8192)

@@ -69,16 +69,16 @@ def load_sys_prompt_from_disk(file_name: str) -> str:
         cache += "".join(raw_file.readlines())
     return cache
 
-def create_cover_letter_refinement_inputs(company_name: str) -> CoverLetterRefinementDict:
+def create_cover_letter_refinement_inputs(company_job_description_name: str) -> CoverLetterRefinementDict:
     """
     Method Creates the inputs to the cover letter refinement.
     The requirements are in disk and are loaded directly to a dictionary
-    :param company_name: name of the company we'd like to create a cover letter for ,
+    :param company_job_description_name: name of the company we'd like to create a cover letter for ,
     :return:
     """
     job_description: str = ""
 
-    with open(_DESCRIPTION_PATH / f"{company_name}.txt", encoding="utf-8", mode="r") as raw_description:
+    with open(_DESCRIPTION_PATH / f"{company_job_description_name}.txt", encoding="utf-8", mode="r") as raw_description:
         job_description += "".join(raw_description.readlines())
 
     results: CoverLetterRefinementDict = {

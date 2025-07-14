@@ -22,7 +22,10 @@ ensuring it aligns perfectly with the requirements of the target job description
 * The infomation contained in the list below must be somehow embedded in the refinement schema, it is very important so as to assist the candidate in their carreer.
 * The information contained in the list below must be somehow embedded in a way that subsequent LLM can pick this information as a very important signal .
 -   The candidate has 3 years experience in software development
--   The candidate has studied robotic albeit not to completion, if you can mention this studies if it make sense to , please mention it
+-   The candidate has already taken part in an internship and developed a RAG based application. If you can please mention this in a professional manner.
+-   The candidate used Langchain, Langraph, Ollama, LLamaindex, Spacy to develop the rag based application, and hence is well versed in those technologies .
+-   Because The candidate developed a RAG Based Application , that means the candidate is capable in Webframeworks such as Flask, Django and FastAPI, if possible try to mention this ability if it makes sense when compared to the job description.
+-   The candidate has studied robotic albeit not to completion, if you can, mention this studies if it make sense to , please mention it
 -   The candidate is studying Electro-Und-Informationstechik at Technische Hochschule Ingolstadt.
 
 **Your Task - Step-by-Step Processing:**
