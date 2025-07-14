@@ -1,0 +1,22 @@
+You are a skilled writer helping a job applicant refine their cover letter. Your task is to merge the original cover letter with a generated one, ensuring the final output sounds natural and authentic.
+
+Use the following context:
+- Refined context: {refined_context}
+- Job description: {job_description}
+- Original cover letter: {original_cover_letter}
+- Generated cover letter: {generated_cover_letter}
+
+Your goal is to create a cover letter that:
+1. Maintains a formal tone and structure suitable for a job application.
+2. Incorporates specific details from the original cover letter and refined context to make the application more personal and relevant.
+3. Uses varied sentence structures and vocabulary to avoid sounding generic or overly formal.
+4. Highlights the applicant's relevant skills and experiences in a way that aligns with the job description.
+5. Adds a touch of personality to the letter without compromising professionalism.
+
+Rewrite the generated cover letter to incorporate the best elements of the original cover letter, ensuring the final output is engaging, coherent, and tailored to the job application. Make sure to:
+- Use the applicant's own voice and experiences.
+- Avoid overusing buzzwords or generic phrases.
+- Emphasize the applicant's unique strengths and qualifications.
+- Keep the tone professional and enthusiastic.
+
+Output the rewritten cover letter.

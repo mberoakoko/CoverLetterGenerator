@@ -23,6 +23,8 @@ DESCRIPTION_PATH: pathlib.Path = (pathlib.Path(__file__).parent / "data/job_desc
 
 SELECTED_MODEL: str = "llama3.2"
 
+_COMPANY_DESCRIPTION: str = "wenglor_sensoric_description"
+
 
 @dataclasses.dataclass
 class Reader:
@@ -84,8 +86,7 @@ class CoverLetterChef:
         return schema.StrOutputParser().invoke(out_1)
 
 
-
-def test_cover_letter_chef():
+def __test_cover_letter_chef():
     for _ in range(10):
         runner = CoverLetterChef(
             prompt=prompt_factory(),
@@ -95,20 +96,20 @@ def test_cover_letter_chef():
         ).create_chain()
         print(runner)
 
-def test_cover_letter_refinement_prompt_template() -> dict:
-    prompt_inputs = create_cover_letter_refinement_inputs("mbda_description")
+def __test_cover_letter_refinement_prompt_template() -> dict:
+    prompt_inputs = create_cover_letter_refinement_inputs(_COMPANY_DESCRIPTION)
     json_parser , letter_prompt = cover_letter_refinement_prompt_template_gen()
     model = ChatOllama(model=SELECTED_MODEL, num_ctx=8192)# .with_structured_output(TargetRoleSummary)
     output = model.invoke(letter_prompt.invoke(prompt_inputs))
     return json_parser.invoke(output)
 
-def test_cover_letter_generation():
-    refined_context = test_cover_letter_refinement_prompt_template()
+def __test_cover_letter_generation():
+    refined_context = __test_cover_letter_refinement_prompt_template()
     cover_letter_prompt = cover_letter_generator()
     ctx = cover_letter_prompt.invoke(
         {
             "refined_context": refined_context,
-            "job_description": resolve_company_description("mbda"),
+            "job_description": resolve_company_description(_COMPANY_DESCRIPTION),
             "original_cover_letter": Reader(file_location=ORIGINAL_COVERLETTER_PATH).read()}
     )
     print("Generated Context ... ")
@@ -120,10 +121,10 @@ def test_cover_letter_generation():
     print(str_result)
     return result
 
-def test_linguistic_style_checker():
+def __test_linguistic_style_checker():
     checker_prompt = linguistic_style_checker_generator()
     model = ChatOllama(model=SELECTED_MODEL, num_ctx=8192)
-    ctx = checker_prompt.invoke({"cover_letter_text": test_cover_letter_generation()})
+    ctx = checker_prompt.invoke({"cover_letter_text": __test_cover_letter_generation()})
     result = model.invoke(ctx)
     str_result = schema.StrOutputParser().invoke(result)
     print("\n\nLinguistic Check result ")
@@ -132,5 +133,5 @@ def test_linguistic_style_checker():
 
 if __name__ == "__main__":
     # test_cover_letter_chef()
-    # test_cover_letter_generation()
-    test_linguistic_style_checker()
+    # __test_cover_letter_generation()
+     __test_linguistic_style_checker()
