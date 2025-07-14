@@ -35,7 +35,6 @@ def cover_letter_refinement_chain(cover_letter_handle: str) -> runnable.Runnable
                 | model
                 | json_parser
              )
-    # return letter_prompt.invoke(prompt_inputs)
 
 
 def cover_letter_generation_chain() -> runnable.RunnableSequence:
